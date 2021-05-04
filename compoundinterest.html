@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Interest Calculator</title>
+        <link rel="stylesheet" type="text/css" src="style.css">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </head>
+    <body style="background-color: teal;">
+        <div class="container">
+            <div class="card" style="box-shadow: 0px 0px 10px 10px; margin:30px 0px 30px 0px">
+                <div class="card-header bg-primary text-white">
+                    <h1 style="font-size: 50px; text-align: center;">Interest Calculator</h1>
+                </div>
+                <div class="card-body">
+                    <nav class="navbar navbar-expand-sm bg-dark">
+                        <ul class="navbar-nav">
+                          <li class="nav-item">
+                                <a class="nav-link" href="index.html">Home</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="simpleinterest.html">SimpleInterest Calculator</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="compoundinterest.html">CompoundInterest Calculator</a>
+                          </li>
+                        </ul>
+                    </nav>
+                    <br>
+                    <form name="form" onsubmit="return false">
+                        <div class="form-group">
+                            <label for="prin" style="font-size: 20px; font-weight: bold;">Principle Amount (Rs.):</label>
+                            <input type="number" id="prin" name="prin" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="rate" style="font-size: 20px; font-weight: bold;">Annual Rate (%):</label>
+                            <input type="number" id="rate" name="rate" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cf" style="font-size: 20px; font-weight: bold;">Compound Frequency:</label>
+                            <select name="cf" id="cf" class="form-control">
+                                <option value="Annually">Annually</option>
+                                <option value="Quarterly">Quarterly</option>
+                                <option value="Monthly">Monthly</option>
+                                <option value="Daily">Daily</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="punit" style="font-size: 20px; font-weight: bold;">Period unit:</label>
+                            <select name="punit" id="punit" class="form-control">
+                                <option value="Years">Years</option>
+                                <option value="Months">Months</option>
+                                <option value="Days">Days</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="period" style="font-size: 20px; font-weight: bold;">Period:</label>
+                            <input type="number" id="period" name="period" class="form-control">
+                        </div>
+                        <input class="btn btn-primary" type="submit" value="Calculate" onclick="cal()">
+                        <input class="btn btn-info" type="reset" style="margin-left: 10px;" value="Reset">
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <b><h4>Compound Interest:</h4></b>
+                    <input class="form-control" id="ci"><br>
+                    <b><h4>Amount:</h4></b>
+                    <input class="form-control" id="amt" style="margin-bottom: 30px;">
+                </div>
+            </div>
+        </div>
+        <script>
+            function cal(){
+                var p=document.getElementById("prin").value;
+                var r=document.getElementById("rate").value;
+                var cfreq=document.getElementById("cf").value;
+                var tunit=document.getElementById("punit").value;
+                var t=document.getElementById("period").value;
+                switch(cfreq){
+                    case 'Annually':
+                        var n=1;
+                        break;
+                    case 'Quarterly':
+                        var n=4;
+                        break;
+                    case 'Monthly':
+                        var n=12;
+                        break;
+                    case 'Daily':
+                        var n=365;
+                        break;
+                }
+                switch(tunit){
+                    case 'Years':
+                        t=t;
+                        break;
+                    case 'Months':
+                        t=t/12;
+                        break;
+                    case 'Days':
+                        t=t/365;
+                        break;
+                }
+                var amount=p*Math.pow(1+(r/(n*100)),n*t);
+                document.getElementById("ci").value=Math.round((Number(amount)-Number(p))*100)/100;
+                document.getElementById("amt").value=Math.round(Number(amount)*100)/100;
+            }
+        </script>
+    </body>
+</html>
